@@ -1,4 +1,8 @@
 import express from 'express'
+import { ApolloServer } from 'apollo-server-express'
+import { typeDefs } from './typeDefs'
+import { resolvers } from './resolvers'
+import mongoose from 'mongoose'
 
 const app: express.Express = express()
 app.use(express.json())
@@ -12,11 +16,20 @@ app.use((_: express.Request, res: express.Response, next: express.NextFunction) 
   next()
 })
 
-app.listen(3000, () => null)
-
-// 一覧取得
-app.get('/', (_: express.Request, res: express.Response) => {
-  res.json({
-    message: 'Hello world!',
+const startServer = async () => {
+  const apolloServer = new ApolloServer({
+    typeDefs,
+    resolvers,
   })
-})
+  await apolloServer.start()
+  apolloServer.applyMiddleware({ app })
+
+  await mongoose.connect('mongodb://localhost:27017/post_db', {
+    user: 'app_user',
+    pass: 'p@ssw0rd',
+  })
+
+  app.listen(4000, () => null)
+}
+
+startServer()
