@@ -1,5 +1,4 @@
-import mongoose, { Model, ObjectId, Schema } from 'mongoose'
-import { Comment } from '../dto/comment.dto'
+import mongoose, { Model, Schema } from 'mongoose'
 import { ICommentDocument } from './comment.model'
 
 /*

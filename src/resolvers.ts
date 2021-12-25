@@ -1,5 +1,8 @@
-import { CreateCommentDTO } from './dto/comment.dto'
-import { CreatePostDTO, DeletePostDTO, GetPostDTO, UpdatePostDTO } from './dto/post.dto'
+import { CreateCommentDTO } from './dto/comment.create.dto'
+import { CreatePostDTO } from './dto/post.create.dto'
+import { GetPostDTO } from './dto/post.get.dto'
+import { UpdatePostDTO } from './dto/post.update.dto'
+import { DeletePostDTO } from './dto/post.delete.dto'
 import { Comment } from './models/comment.model'
 import { Post } from './models/post.model'
 
