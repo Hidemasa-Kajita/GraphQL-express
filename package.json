@@ -32,8 +32,7 @@
   "lint-staged": {
     "*.ts": [
       "prettier --write",
-      "tslint --fix",
-      "graphql-codegen --config codegen.yml"
+      "tslint --fix"
     ]
   },
   "devDependencies": {
