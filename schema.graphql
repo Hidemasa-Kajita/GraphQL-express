@@ -1,0 +1,34 @@
+type Comment {
+  content: String
+  id: ID
+  post: Post
+}
+
+input CommentInput {
+  content: String
+}
+
+type Mutation {
+  createComment(comment: CommentInput, id: ID): Comment
+  createPost(post: PostInput): Post
+  deletePost(id: ID): String
+  updatePost(id: ID, post: PostInput): Post
+}
+
+type Post {
+  comments: [Comment]
+  content: String
+  id: ID
+  title: String
+}
+
+input PostInput {
+  content: String
+  title: String
+}
+
+type Query {
+  getAllPosts: [Post]
+  getPost(id: ID): Post
+  hello: String
+}
