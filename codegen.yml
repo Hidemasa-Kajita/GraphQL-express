@@ -1,0 +1,18 @@
+overwrite: true # 出力するファイルを毎度上書きする
+schema: "http://localhost:4000/graphql" # 自分のendpoint
+generates:
+  graphql.ts: # 出力するファイル名 
+                            # 出力先、ファイル名は任意だが、拡張子はtsまたはtsx
+    plugins: # 必要となるプラグイン
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      # 下の3つはtypescript-react-apolloのオプション
+      withHOC: false # HOCは要らないので
+      withComponent: false # falseなので出力ファイル拡張子が.tsでもいい。
+                           # このオプションを設定しないとデフォルトtrueなので、.tsx拡張子にしろとエラーが出る
+      withHooks: true # 上のdocumentsの設定があればこれでhookが自動生成される
+  schema.graphql:
+    plugins:
+      - schema-ast
