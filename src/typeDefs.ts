@@ -4,7 +4,14 @@ export const typeDefs = gql`
   type Post {
     id: ID
     title: String
-    description: String
+    content: String
+    comments: [Comment]
+  }
+
+  type Comment {
+    id: ID
+    content: String
+    post: Post
   }
 
   type Query {
@@ -17,13 +24,19 @@ export const typeDefs = gql`
 
   input PostInput {
     title: String
-    description: String
+    content: String
+  }
+
+  input CommentInput {
+    content: String
   }
 
   type Mutation {
     createPost(post: PostInput): Post
 
     deletePost(id: ID): String
+
+    createComment(id: ID, comment: CommentInput): Comment
 
     updatePost(id: ID, post: PostInput): Post
   }

@@ -1,4 +1,6 @@
-import mongoose, { Model } from 'mongoose'
+import mongoose, { Model, ObjectId, Schema } from 'mongoose'
+import { Comment } from '../dto/comment.dto'
+import { ICommentDocument } from './comment.model'
 
 /*
  * post model
@@ -9,9 +11,10 @@ import mongoose, { Model } from 'mongoose'
  * @see https://github.com/Automattic/mongoose/blob/master/docs/typescript/virtuals.md virtuals in typescript
  */
 
-interface IPostDocument extends mongoose.Document {
+export interface IPostDocument extends mongoose.Document<{ _id: string }> {
   title: string
-  description: string
+  content: string
+  comments: ICommentDocument[]
 }
 
 interface IPostVirtuals {
@@ -31,9 +34,15 @@ const PostSchema = new mongoose.Schema<IPostDocument, IPostModel, IPostVirtuals>
     type: String,
     required: true,
   },
-  description: {
+  content: {
     type: String,
   },
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Comment',
+    },
+  ],
 })
 
 /*
@@ -60,7 +69,7 @@ PostSchema.methods.dynamicMethod = function () {
  * @see https://stackoverflow.com/questions/54445462/mongoose-virtuals-with-typescript-error-the-containing-arrow-function-captures stackoverflow
  */
 PostSchema.virtual('all').get(function (this: IPostDocument) {
-  return `${this.title} ${this.description}`
+  return `${this.title} ${this.content}`
 })
 
 export const Post = mongoose.model<IPostDocument, IPostModel>('post', PostSchema)

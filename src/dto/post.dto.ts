@@ -5,7 +5,7 @@
 export type Post = {
   id: string
   title: string
-  descriptiuon: string
+  content: string
 }
 
 export interface GetPostDTO {
